@@ -1,0 +1,20 @@
+# iTOL-MCP 环境复现文件（micromamba / conda 兼容）
+# 说明：也可不创建环境，直接使用既有 micromamba 环境 python-3.11 并执行
+#   python -m pip install -e ".[dev]"
+name: itol-mcp
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip:
+      - mcp==2.3.0
+      - dendropy>=4.6,<6.0
+      - pandas>=2.0,<3.0
+      - PyYAML>=6.0,<7.0
+      - httpx>=0.28,<1.0
+      - pydantic>=2.12,<3.0
+      - pytest>=7.0
+      - pytest-cov>=4.0
+      - respx>=0.21
+      - ruff>=0.15
+      - mypy>=1.11

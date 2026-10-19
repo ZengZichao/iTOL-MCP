@@ -1,0 +1,119 @@
+[build-system]
+requires = ["setuptools>=77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "itol-mcp"
+version = "0.1.0"
+description = "MCP server for iTOL phylogenetic tree visualization automation"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    {name = "Zichao Zeng", email = "zengzichao@sjtu.edu.cn"},
+]
+keywords = [
+    "mcp", "model-context-protocol", "itol", "phylogenetics",
+    "bioinformatics", "tree", "newick", "nexus",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "mcp==2.3.0",
+    "dendropy>=4.6,<6.0",
+    "pandas>=2.0,<3.0",
+    "PyYAML>=6.0,<7.0",
+    "httpx>=0.28,<1.0",
+    "pydantic>=2.12,<3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "respx>=0.21",
+    "ruff>=0.15",
+    "mypy>=1.11",
+]
+
+[project.scripts]
+itol-mcp = "itol_mcp.server:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+itol_mcp = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "integration: 真实 iTOL API 集成测试（需要 ITOL_API_KEY，默认跳过）",
+    "slow: 慢速测试",
+]
+
+[tool.coverage.run]
+source = ["itol_mcp"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+skip_covered = false
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "def __repr__",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "examples"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "C4", "S", "UP", "RUF", "SIM", "ANN"]
+ignore = [
+    "ANN401",  # 允许 Any 返回值（mcp 工具返回 dict 的宽松场景）
+    "S301",    # 本包未使用 pickle
+    "S110",    # 允许 try/except: pass 用于资源清理探测
+    "RUF001",  # 中文全角标点属本包文档与提示的常规写法，非“歧义字符”
+    "RUF002",
+    "RUF003",
+    "E501",    # 中文长句（docstring / MCP tool description）无法按 100 列语义换行
+    "RUF005",  # 参数白名单用元组拼接（共享 _COMMON_PARAMS + 追加项）更清晰
+    "SIM105",  # try/except: pass 用于资源清理更显式
+]
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ANN001", "ANN201", "ANN202", "S101", "SLF001"]
+"examples/*" = ["ANN001", "ANN201", "S101", "S311"]  # 合成数据脚本使用 random 属预期
+"src/itol_mcp/_version.py" = ["ANN"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["itol_mcp"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_configs = true
+# MCP 工具函数返回的 data/warnings 为异构 dict/list，无法统一类型参数；
+# 关闭“泛型必须有类型实参”强制，其余 strict 检查保持不变。
+disallow_any_generics = false
+packages = ["itol_mcp"]
+exclude = ["tests/", "examples/"]
+# 第三方无类型标记的模块按模块豁免（记录原因）
+[[tool.mypy.overrides]]
+module = ["dendropy.*", "pandas.*", "yaml.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["mcp.*", "pydantic.*"]
+ignore_missing_imports = true

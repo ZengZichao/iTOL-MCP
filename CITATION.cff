@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "如果本软件对你的研究有帮助，请引用："
+title: "iTOL-MCP: MCP server for iTOL phylogenetic tree visualization automation"
+authors:
+  - family-names: Zeng
+    given-names: Zichao
+    email: zengzichao@sjtu.edu.cn
+version: 0.1.0
+date-released: 2026-10-19
+license: MIT
+keywords:
+  - MCP
+  - iTOL
+  - phylogenetics
+  - tree visualization
+  - Newick
+  - Nexus

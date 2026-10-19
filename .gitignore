@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+*.egg
+
+# 环境与依赖
+.venv/
+venv/
+.env
+
+# 测试与覆盖率
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# iTOL-MCP 运行时
+.itol_mcp_workspace/
+*.log
+
+# 示例脚本运行产物（可由 examples/scripts/generate_synthetic_data.py 重新生成）
+examples/output/
+
+# 临时探测/日志文件
+.mcp_*.py
+tmp*
+
+# 密钥文件（严禁提交）
+.itolapi.key
+!

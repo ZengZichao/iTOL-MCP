@@ -1,0 +1,27 @@
+iTOL-MCP 第三方版权声明
+========================
+
+本项目（itol-mcp）为独立自包含实现，参考并借鉴了以下开源项目的设计：
+
+1. PyiTOL（https://github.com/yanzhongsino/PyiTOL）
+   - 借鉴：模板 Schema 注册表机制、分类学解析算法（GTDB/嵌入式/NCBI/auto）、
+     单系群检测算法、iTOL API 客户端解析逻辑、配色预设。
+   - 许可：MIT License（详见 https://github.com/yanzhongsino/PyiTOL）
+
+2. itolapi（https://github.com/albertyw/itolapi）
+   - 参考：iTOL 批量接口端点与上传/导出协议细节。
+   - 许可：MIT License（详见 https://github.com/albertyw/itolapi）
+
+3. itol.toolkit（R 生态，https://github.com/TongZhou2017/itol.toolkit）
+   - 参考：iTOL 模板类型覆盖范围与配色/主题思路，未引入 R 依赖。
+   - 许可：MIT License（详见 https://github.com/TongZhou2017/itol.toolkit）
+
+4. iTOL（Interactive Tree Of Life, https://itol.embl.de/）
+   - 协议依据：官方 Help 页面的批量上传/下载/删除接口规范。
+   - 注意：使用 iTOL 批量接口需要注册 iTOL 账户；上传功能需要标准版订阅。
+   - iTOL 服务条款：https://itol.embl.de/help.cgi#terms
+
+主要第三方 Python 依赖及其许可：
+- mcp (MIT) / dendropy (BSD-3-Clause) / pandas (BSD-3-Clause)
+- PyYAML (MIT) / httpx (BSD-3-Clause) / pydantic (MIT)
+- pytest / pytest-cov / respx / ruff / mypy（均为开发测试依赖，开源许可）
