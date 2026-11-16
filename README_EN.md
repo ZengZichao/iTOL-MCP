@@ -73,14 +73,14 @@ python -m ruff check src tests examples   # lint
 python -m mypy src/itol_mcp      # type checking
 ```
 
-Test coverage ≥85%.
+Test coverage ≥85%. See `CONTRIBUTING.md` for contribution guidelines.
 
 ## Security Highlights
 
 - API key via three channels (tool arg > env var > key file), fully redacted, key file chmod 600;
 - All file access confined to the workspace whitelist — no path traversal or symlink escape;
 - HTTPS-only to the official iTOL domain, with unified timeouts and retry policy;
-- See `docs/security.md`.
+- See `docs/security.md`; to report a vulnerability, follow `SECURITY.md` (private disclosure).
 
 ## Prerequisites
 

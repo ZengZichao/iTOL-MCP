@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### 仓库规范
+
+- 新增 `CONTRIBUTING.md`（贡献指南）与 `SECURITY.md`（安全政策）；
+- 新增 `.github/CODEOWNERS`、`.github/dependabot.yml`、PR 模板与 Issue 模板（含私有漏洞报告入口）；
+- README（中/英）补充指向贡献指南与安全政策的链接。
+
 ## 0.1.0（2026-10-19）
 
 iTOL-MCP 首个发布版：基于 MCP（Model Context Protocol）的 iTOL 服务端，使 AI 助手可通过标准

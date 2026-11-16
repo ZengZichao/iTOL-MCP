@@ -67,14 +67,14 @@ python -m ruff check src tests examples   # lint
 python -m mypy src/itol_mcp      # 类型检查
 ```
 
-测试覆盖率 ≥85%。
+测试覆盖率 ≥85%。贡献指南详见 `CONTRIBUTING.md`。
 
 ## 安全要点
 
 - API Key 三通道（工具参数 > 环境变量 > 密钥文件），全程脱敏，密钥文件权限 600；
 - 所有文件访问收束于工作区白名单，杜绝路径穿越与 symlink 逃逸；
 - 仅 HTTPS 与 iTOL 官方域名通信，统一超时与重试策略；
-- 详见 `docs/security.md`。
+- 详见 `docs/security.md`；发现安全漏洞请按 `SECURITY.md` 私下报告。
 
 ## 使用前提
 

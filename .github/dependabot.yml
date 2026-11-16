@@ -1,0 +1,45 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    # pip 生态的 ignore/update-types 必须显式给出 dependency-name，
+    # 否则 Dependabot 报 "did not contain a required property of 'dependency-name'"。
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # 按升级幅度分组：major 已在上面 ignore，这里只处理 patch 与 minor，
+    # 避免任一传递依赖坏掉就堵住其余全部升级。
+    #
+    # 注意两处 update-types 的取值格式不同，混用会被 Dependabot 直接拒收：
+    #   ignore[].update-types  用完整形式 "version-update:semver-major"
+    #   groups.<name>.update-types 用短形式     "patch" / "minor" / "major"
+    groups:
+      pip-patch:
+        update-types: ["patch"]
+      pip-minor:
+        update-types: ["minor"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(ci)"
+    # 屏蔽 major 升级：action 跨大版本会更换 Node 运行时
+    # （如 actions/checkout 4→5 从 Node 20 跳到 Node 24），
+    # 未经人工验证直接合并会破坏 CI 流水线。
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # 本仓库的 action 以 tag 形式引用（见 .github/workflows/ci.yml），
+    # Dependabot 依据 `# vX.Y.Z` 注释识别版本。各 action 只在该工作流中
+    # 协同使用，合并为一个 PR 便于整体回归。
+    groups:
+      github-actions:
+        patterns: ["*"]
